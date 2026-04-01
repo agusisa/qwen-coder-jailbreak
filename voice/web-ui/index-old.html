@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Evil Ganda Voice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            color: #ff3333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff3333;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(255, 51, 51, 0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff3333;
+        }
+        .subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        button {
+            background: #ff3333;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 15px rgba(255, 51, 51, 0.4);
+        }
+        button:hover:not(:disabled) {
+            background: #ff5555;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 51, 51, 0.6);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        button.recording {
+            background: #00ff00;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .status {
+            text-align: center;
+            min-height: 30px;
+            color: #aaa;
+            font-style: italic;
+        }
+        .conversation {
+            margin-top: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(255, 51, 51, 0.05);
+            border-radius: 10px;
+            border: 1px solid #ff3333;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user {
+            background: rgba(0, 150, 255, 0.1);
+            text-align: right;
+        }
+        .assistant {
+            background: rgba(255, 51, 51, 0.1);
+        }
+        .reset-btn {
+            background: #444;
+            font-size: 0.9em;
+            padding: 10px 20px;
+        }
+        .reset-btn:hover {
+            background: #666;
+        }
+        .settings {
+            width: 100%;
+            background: rgba(255, 51, 51, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 51, 51, 0.2);
+        }
+        .setting-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .setting-row:last-child {
+            margin-bottom: 0;
+        }
+        .setting-row label {
+            min-width: 100px;
+            font-weight: bold;
+        }
+        .setting-row select {
+            flex: 1;
+            background: #000;
+            color: #ff3333;
+            border: 1px solid #ff3333;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .setting-row input[type="range"] {
+            flex: 1;
+            cursor: pointer;
+        }
+        .setting-row span {
+            min-width: 60px;
+            text-align: right;
+            color: #aaa;
+        }
+        .text-input {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .text-input input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff3333;
+            color: #ff3333;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+        }
+        .text-input input::placeholder {
+            color: #666;
+        }
+        .text-input input:focus {
+            outline: none;
+            border-color: #ff5555;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+        .text-input button {
+            padding: 12px 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Evil Ganda</h1>
+        <div class="subtitle">Habla conmigo (100% local)</div>
+        
+        <div class="controls">
+            <div class="settings">
+                <div class="setting-row">
+                    <label>🎤 Voz:</label>
+                    <select id="voiceSelect">
+                        <option value="Mónica">Mónica (España 🇪🇸)</option>
+                        <option value="Paulina">Paulina (México 🇲🇽)</option>
+                        <option value="Eddy (Spanish (Mexico))">Eddy (México 🇲🇽)</option>
+                        <option value="Flo (Spanish (Mexico))">Flo (México 🇲🇽)</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <label>🔊 Volumen:</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="80">
+                    <span id="volumeValue">80%</span>
+                </div>
+                <div class="setting-row">
+                    <label>⚡ Velocidad:</label>
+                    <input type="range" id="speedSlider" min="100" max="300" value="175" step="25">
+                    <span id="speedValue">175 wpm</span>
+                </div>
+            </div>
+            
+            <button id="recordBtn" onclick="toggleRecording()">
+                🎙️ PRESIONA PARA HABLAR
+            </button>
+            
+            <div class="text-input">
+                <input type="text" id="textInput" placeholder="O escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendText()">📝 Enviar</button>
+            </div>
+            
+            <button class="reset-btn" onclick="resetConversation()">
+                🔄 Limpiar conversación
+            </button>
+            <div class="status" id="status">Listo para escuchar...</div>
+        </div>
+        
+        <div class="conversation" id="conversation"></div>
+        
+        <audio id="audioPlayer" style="display: none;"></audio>
+    </div>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        async function toggleRecording() {
+            if (!isRecording) {
+                await startRecording();
+            } else {
+                await stopRecording();
+            }
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    await sendAudio(audioBlob);
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                
+                document.getElementById('recordBtn').classList.add('recording');
+                document.getElementById('recordBtn').textContent = '⏹️ DETENER';
+                document.getElementById('status').textContent = 'Grabando...';
+            } catch (error) {
+                alert('Error al acceder al micrófono: ' + error.message);
+            }
+        }
+
+        async function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                
+                document.getElementById('recordBtn').classList.remove('recording');
+                document.getElementById('recordBtn').textContent = '🎙️ PRESIONA PARA HABLAR';
+                document.getElementById('status').textContent = 'Procesando...';
+            }
+        }
+
+        // Update volume/speed displays
+        document.getElementById('volumeSlider').addEventListener('input', (e) => {
+            document.getElementById('volumeValue').textContent = e.target.value + '%';
+        });
+        
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            document.getElementById('speedValue').textContent = e.target.value + ' wpm';
+        });
+
+        async function sendAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recording.webm');
+            formData.append('userId', 'web-user');
+            formData.append('voice', document.getElementById('voiceSelect').value);
+            formData.append('volume', document.getElementById('volumeSlider').value);
+            formData.append('speed', document.getElementById('speedSlider').value);
+
+            try {
+                const response = await fetch('/voice', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+
+                const data = await response.json();
+                
+                // Show conversation
+                addMessage('user', data.transcript);
+                addMessage('assistant', data.reply);
+                
+                // Play audio response
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = 'data:audio/wav;base64,' + data.audio;
+                audioPlayer.play();
+                
+                document.getElementById('status').textContent = 'Listo para escuchar...';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+
+        function addMessage(role, text) {
+            const conv = document.getElementById('conversation');
+            const msg = document.createElement('div');
+            msg.className = 'message ' + role;
+            msg.textContent = (role === 'user' ? 'Tú: ' : 'Evil Ganda: ') + text;
+            conv.appendChild(msg);
+            conv.scrollTop = conv.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendText();
+            }
+        }
+
+        async function sendText() {
+            const input = document.getElementById('textInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            input.value = '';
+            document.getElementById('status').textContent = 'Procesando...';
+            
+            try {
+                const response = await fetch('/text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: 'web-user',
+                        text: text,
+                        voice: document.getElementById('voiceSelect').value,
+                        volume: document.getElementById('volumeSlider').value,
+                        speed: document.getElementById('speedSlider').value
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+
+                const data = await response.json();
+                
+                addMessage('user', text);
+                addMessage('assistant', data.reply);
+                
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = 'data:audio/wav;base64,' + data.audio;
+                audioPlayer.play();
+                
+                document.getElementById('status').textContent = 'Listo para escuchar...';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+
+        async function resetConversation() {
+            await fetch('/reset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: 'web-user' })
+            });
+            document.getElementById('conversation').innerHTML = '';
+            document.getElementById('status').textContent = 'Conversación reiniciada';
+        }
+    </script>
+</body>
+</html>

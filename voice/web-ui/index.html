@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Evil Ganda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #000;
+            color: #ff3333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section with Parallax */
+        .hero {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero__bg, .hero__overlay {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero__bg {
+            animation: hellscape-reveal 3s ease-out forwards;
+            z-index: 1;
+        }
+
+        .hero__overlay {
+            z-index: 3;
+            animation: tunnel-zoom 3s ease-in forwards;
+            opacity: 1;
+        }
+
+        .hero__title {
+            font-family: "Oxanium", sans-serif;
+            font-weight: 800;
+            position: fixed;
+            font-size: clamp(2rem, 12vw, 10rem);
+            white-space: nowrap;
+            color: #fff;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            animation: title-reveal 3s ease-out forwards;
+            text-shadow: 
+                0 0 20px #ff3333, 
+                0 0 40px #ff0000,
+                0 0 80px #ff0000,
+                0 5px 10px rgba(0, 0, 0, 0.8);
+            letter-spacing: -1.5rem;
+        }
+
+        @keyframes title-reveal {
+            0% {
+                letter-spacing: -1.5rem;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            30% {
+                opacity: 1;
+                letter-spacing: 0.2rem;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                letter-spacing: 0.5rem;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        @keyframes hellscape-reveal {
+            0% {
+                filter: blur(8px) brightness(0.6) contrast(1.1);
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                filter: blur(0px) brightness(0.8) contrast(1.3);
+                transform: translate(-50%, -50%) scale(1.4);
+            }
+        }
+
+        @keyframes tunnel-zoom {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(8);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(12);
+                opacity: 0;
+            }
+        }
+
+        /* Main Interface */
+        .interface {
+            position: fixed;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.75);
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            animation: modal-appear 1.5s ease-out forwards;
+            animation-delay: 2s;
+            opacity: 0;
+            filter: blur(20px);
+        }
+
+        @keyframes modal-appear {
+            0% {
+                opacity: 0;
+                filter: blur(20px);
+                transform: translate(-50%, -50%) scale(0.6);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: translate(-50%, -50%) scale(0.75);
+            }
+        }
+
+        .container {
+            background: rgba(5, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border: 3px solid #ff0000;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 0 60px rgba(255, 0, 0, 0.6),
+                0 0 100px rgba(255, 0, 0, 0.4),
+                inset 0 0 60px rgba(255, 0, 0, 0.15),
+                inset 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ff3333, #cc0000, #ff0000);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(10px);
+            animation: border-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes border-glow {
+            0%, 100% {
+                opacity: 0.3;
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.6;
+                filter: blur(15px);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 5px;
+            text-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                0 0 60px #ff0000,
+                0 5px 15px rgba(0, 0, 0, 0.9);
+            color: #fff;
+            font-weight: 900;
+            letter-spacing: 3px;
+            animation: title-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes title-pulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 60px #ff0000,
+                    0 5px 15px rgba(0, 0, 0, 0.9);
+            }
+            50% {
+                text-shadow: 
+                    0 0 30px #ff0000,
+                    0 0 60px #ff0000,
+                    0 0 90px #ff0000,
+                    0 5px 20px rgba(0, 0, 0, 1);
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ff3333;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        /* Settings */
+        .settings {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #660000;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .setting-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-row label {
+            min-width: 80px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .setting-row select {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ff3333;
+            border: 2px solid #660000;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .setting-row select:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .setting-row input[type="range"] {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .setting-row span {
+            min-width: 60px;
+            text-align: right;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #cc0000 0%, #660000 100%);
+            color: #fff;
+            border: 2px solid #ff0000;
+            padding: 12px 35px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 
+                0 4px 20px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ff0000 0%, #990000 100%);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 30px rgba(255, 0, 0, 0.8),
+                inset 0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: #ff3333;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button.recording {
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Text Input */
+        .text-input {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .text-input input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #660000;
+            color: #ff3333;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-input input::placeholder {
+            color: #444;
+        }
+
+        .text-input input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.5),
+                inset 0 0 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .text-input button {
+            padding: 12px 25px;
+            font-size: 1em;
+        }
+
+        /* Status */
+        .status {
+            text-align: center;
+            min-height: 30px;
+            color: #aaa;
+            font-style: italic;
+            margin: 15px 0;
+        }
+
+        /* Conversation */
+        .conversation {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            border: 2px solid #ff0000;
+            box-shadow: 
+                inset 0 0 30px rgba(255, 0, 0, 0.2),
+                0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .conversation::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .conversation::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .conversation::-webkit-scrollbar-thumb {
+            background: #ff3333;
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user {
+            background: rgba(0, 100, 255, 0.15);
+            text-align: right;
+            border-left: 3px solid #0066ff;
+        }
+
+        .assistant {
+            background: rgba(255, 51, 51, 0.15);
+            border-left: 3px solid #ff3333;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #444 0%, #222 100%);
+            font-size: 0.9em;
+            padding: 10px 20px;
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #666 0%, #444 100%);
+        }
+
+        /* Credit */
+        .credit {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #666;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        .credit a {
+            color: #ff3333;
+            text-decoration: none;
+        }
+
+        .credit a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Parallax Section -->
+    <div class="hero">
+        <h1 class="hero__title">EVIL GANDA<br/>UNCENSORED</h1>
+        <!-- Background hellscape (atrás, visible a través del túnel) -->
+        <img src="hellscape-hd.jpg" alt="" class="hero__bg" />
+        <!-- Tunnel overlay (adelante, con centro transparente) -->
+        <img src="tunnel-transparent-hd.png" alt="" class="hero__overlay" />
+    </div>
+
+    <!-- Main Interface -->
+    <div class="interface">
+        <div class="container">
+            <h2>🔥 Evil Ganda</h2>
+            <div class="subtitle">Uncensored AI • 100% Local</div>
+            
+            <div class="settings">
+                <div class="setting-row">
+                    <label>🎤 Voz:</label>
+                    <select id="voiceSelect">
+                        <option value="Mónica">Mónica (España 🇪🇸)</option>
+                        <option value="Paulina">Paulina (México 🇲🇽)</option>
+                        <option value="Eddy (Spanish (Mexico))">Eddy (México 🇲🇽)</option>
+                        <option value="Flo (Spanish (Mexico))">Flo (México 🇲🇽)</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <label>🔊 Volumen:</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="80">
+                    <span id="volumeValue">80%</span>
+                </div>
+                <div class="setting-row">
+                    <label>⚡ Velocidad:</label>
+                    <input type="range" id="speedSlider" min="100" max="300" value="175" step="25">
+                    <span id="speedValue">175 wpm</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="recordBtn" onclick="toggleRecording()">
+                    🎙️ PRESIONA PARA HABLAR
+                </button>
+                
+                <div class="text-input">
+                    <input type="text" id="textInput" placeholder="O escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendText()">📝 Enviar</button>
+                </div>
+                
+                <button class="reset-btn" onclick="resetConversation()">
+                    🔄 Limpiar conversación
+                </button>
+                <div class="status" id="status">Listo para escuchar...</div>
+            </div>
+            
+            <div class="conversation" id="conversation"></div>
+            
+            <audio id="audioPlayer" style="display: none;"></audio>
+        </div>
+    </div>
+
+    <div class="credit">
+        Powered by <a href="#">Qwen 2.5 Coder 7B</a> • Jailbreak 96%
+    </div>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // Update displays
+        document.getElementById('volumeSlider').addEventListener('input', (e) => {
+            document.getElementById('volumeValue').textContent = e.target.value + '%';
+        });
+        
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            document.getElementById('speedValue').textContent = e.target.value + ' wpm';
+        });
+
+        async function toggleRecording() {
+            if (!isRecording) {
+                await startRecording();
+            } else {
+                await stopRecording();
+            }
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    await sendAudio(audioBlob);
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                
+                document.getElementById('recordBtn').classList.add('recording');
+                document.getElementById('recordBtn').textContent = '⏹️ DETENER';
+                document.getElementById('status').textContent = 'Grabando...';
+            } catch (error) {
+                alert('Error al acceder al micrófono: ' + error.message);
+            }
+        }
+
+        async function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                
+                document.getElementById('recordBtn').classList.remove('recording');
+                document.getElementById('recordBtn').textContent = '🎙️ PRESIONA PARA HABLAR';
+                document.getElementById('status').textContent = 'Procesando...';
+            }
+        }
+
+        async function sendAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recording.webm');
+            formData.append('userId', 'web-user');
+            formData.append('voice', document.getElementById('voiceSelect').value);
+            formData.append('volume', document.getElementById('volumeSlider').value);
+            formData.append('speed', document.getElementById('speedSlider').value);
+
+            try {
+                const response = await fetch('/voice', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+
+                const data = await response.json();
+                
+                addMessage('user', data.transcript);
+                addMessage('assistant', data.reply);
+                
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = 'data:audio/wav;base64,' + data.audio;
+                audioPlayer.play();
+                
+                document.getElementById('status').textContent = 'Listo para escuchar...';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendText();
+            }
+        }
+
+        async function sendText() {
+            const input = document.getElementById('textInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            input.value = '';
+            document.getElementById('status').textContent = 'Procesando...';
+            
+            try {
+                const response = await fetch('/text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: 'web-user',
+                        text: text,
+                        voice: document.getElementById('voiceSelect').value,
+                        volume: document.getElementById('volumeSlider').value,
+                        speed: document.getElementById('speedSlider').value
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+
+                const data = await response.json();
+                
+                addMessage('user', text);
+                addMessage('assistant', data.reply);
+                
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = 'data:audio/wav;base64,' + data.audio;
+                audioPlayer.play();
+                
+                document.getElementById('status').textContent = 'Listo para escuchar...';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+
+        function addMessage(role, text) {
+            const conv = document.getElementById('conversation');
+            const msg = document.createElement('div');
+            msg.className = 'message ' + role;
+            msg.textContent = (role === 'user' ? 'Tú: ' : 'Evil Ganda: ') + text;
+            conv.appendChild(msg);
+            conv.scrollTop = conv.scrollHeight;
+        }
+
+        async function resetConversation() {
+            await fetch('/reset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: 'web-user' })
+            });
+            document.getElementById('conversation').innerHTML = '';
+            document.getElementById('status').textContent = 'Conversación reiniciada';
+        }
+    </script>
+</body>
+</html>

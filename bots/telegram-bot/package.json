@@ -1,0 +1,19 @@
+{
+  "name": "evil-ganda-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^6.4.0",
+    "axios": "^1.14.0",
+    "duckduckgo-search": "^1.0.7",
+    "node-fetch": "^2.7.0",
+    "node-telegram-bot-api": "^0.67.0"
+  }
+}
