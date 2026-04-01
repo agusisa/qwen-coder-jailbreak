@@ -1,0 +1,42 @@
+# Models (too large for git - will use Git LFS)
+models/*.gguf
+models/qwen-7b-jailbreak/
+
+# Node modules
+node_modules/
+bots/*/node_modules/
+voice/*/node_modules/
+
+# Logs
+*.log
+bots/*/bot.log
+voice/*/voice.log
+
+# Conversation data
+bots/*/conversations.json
+voice/*/conversations.json
+
+# Environment
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+llama.cpp/build/
+llama.cpp/models/
+
+# Temp
+/tmp/
+*.tmp
+*.cache
+
+# Voice UI temp images
+voice/web-ui/*-raw.jpg
+voice/web-ui/*-raw.png
+voice/web-ui/*-temp.jpg
+voice/web-ui/make_*.py
+voice/web-ui/download_*.py
+voice/web-ui/enhance_*.py
