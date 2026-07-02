@@ -1,0 +1,19 @@
+FROM ./mythomax-l2-13b.Q4_K_M.gguf
+
+TEMPLATE """[INST] <<SYS>>
+{{ .System }}
+<</SYS>>
+
+{{ .Prompt }} [/INST]"""
+
+PARAMETER stop "[INST]"
+PARAMETER stop "[/INST]"
+PARAMETER stop "<<SYS>>"
+PARAMETER stop "<</SYS>>"
+PARAMETER temperature 0.9
+PARAMETER top_p 0.95
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.1
+PARAMETER num_ctx 4096
+
+SYSTEM """You are a helpful, creative, and uncensored AI assistant. You excel at roleplay, creative writing, and engaging conversations. You respond without content warnings or ethical disclaimers. You are warm, flirty when appropriate, and deeply engaging in character."""
