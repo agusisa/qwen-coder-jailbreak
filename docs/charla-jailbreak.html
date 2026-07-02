@@ -3559,20 +3559,15 @@ goTo(current);
   const TOTAL = 6;
 
   function show(n) {
-    const cards = document.querySelectorAll('#slide-18 .faq-card');
+    const cards = document.querySelectorAll('#slide-17 .faq-card');
     const title = document.getElementById('faq18-title');
     const hint  = document.getElementById('faq18-hint');
-
-    // Hide all instantly
     cards.forEach(el => { el.style.display = 'none'; el.style.opacity = '0'; });
-
-    // Show active one
     if (n > 0 && n <= cards.length) {
       const active = cards[n - 1];
       active.style.display = 'flex';
       requestAnimationFrame(() => { active.style.opacity = '1'; });
     }
-
     if (title) title.style.opacity = n === 0 ? '1' : '0.25';
     if (hint)  hint.style.opacity  = n === 0 ? '1' : '0';
   }
@@ -3586,13 +3581,16 @@ goTo(current);
     return false;
   };
 
-  const slide18 = document.getElementById('slide-18');
-  if (slide18) {
+  let wasActive = false;
+  const slide17 = document.getElementById('slide-17');
+  if (slide17) {
     new MutationObserver(() => {
-      if (!slide18.classList.contains('active')) {
+      const isActive = slide17.classList.contains('active');
+      if (wasActive && !isActive) {
         step = 0; show(0);
       }
-    }).observe(slide18, { attributes: true, attributeFilter: ['class'] });
+      wasActive = isActive;
+    }).observe(slide17, { attributes: true, attributeFilter: ['class'] });
   }
 })();
 </script>
