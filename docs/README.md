@@ -140,11 +140,12 @@ npm install node-telegram-bot-api axios
 
 #### Ejecución
 ```bash
-cd ~/evil-ganda-bot
+cd bots/telegram-bot
+export TELEGRAM_BOT_TOKEN=   # from BotFather, never commit
 node bot-simple.js
 ```
 
-**Estado:** ✅ Funcionando 24/7
+**Estado:** token via env. El bot no arranca si falta.
 
 ---
 
